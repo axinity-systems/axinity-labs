@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Axinity Labs | Smart Tools for Smarter Students</title>
+    <!-- Google Fonts: Modern sans-serif & clean typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0a0c12, #030507);
+            color: #f0f3fa;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism + premium dark theme */
+        .glass-card, nav, .tool-card, .feature-card, .stat-card, footer {
+            background: rgba(20, 25, 40, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(100, 120, 255, 0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 2rem;
+            margin-top: 1.5rem;
+            border-radius: 3rem;
+            background: rgba(12, 15, 28, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(80, 110, 255, 0.3);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF, #a0b5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #eef3ff;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #7b9eff;
+            text-shadow: 0 0 5px rgba(100, 150, 255, 0.4);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(105deg, #3b5eff, #8b5cf6);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(59, 94, 255, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px #3b5eff80;
+            background: linear-gradient(105deg, #4c6cff, #9d6eff);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(123, 158, 255, 0.5);
+            padding: 0.9rem 2rem;
+            border-radius: 3rem;
+            font-weight: 500;
+            color: #cddcff;
+            cursor: pointer;
+            transition: 0.25s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(80, 110, 255, 0.25);
+            border-color: #7b9eff;
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #b7cbff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            color: #cbd5ff;
+            margin-bottom: 2rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Section headers */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #eef3ff, #b6c6ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .tool-card {
+            padding: 1.8rem;
+            border-radius: 1.8rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s forwards;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(100, 150, 255, 0.7);
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(100,150,255,0.2);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #8bacff;
+        }
+
+        .tool-card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .tool-card p {
+            color: #b9c4e6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .tool-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(123, 158, 255, 0.5);
+            border-radius: 2rem;
+            padding: 0.6rem 1.2rem;
+            font-weight: 500;
+            color: #d6e2ff;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .tool-btn:hover {
+            background: #3b5eff30;
+            border-color: #8bacff;
+            color: white;
+            gap: 12px;
+        }
+
+        /* Features */
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 1.8rem 1rem;
+            backdrop-filter: blur(12px);
+            background: rgba(25, 30, 45, 0.5);
+            border-radius: 1.6rem;
+            transition: 0.25s;
+        }
+        .feature-card i {
+            font-size: 2.3rem;
+            color: #7b9eff;
+            margin-bottom: 1rem;
+        }
+        .feature-card h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin: 3rem 0 2rem;
+        }
+        .stat-card {
+            padding: 1.6rem 2rem;
+            text-align: center;
+            min-width: 160px;
+            background: rgba(10, 14, 28, 0.65);
+        }
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #ffffff, #aec2ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: #bfceff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            border-radius: 2rem;
+            background: rgba(10, 12, 20, 0.7);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* staggered cards */
+        .tool-card:nth-child(1) { animation-delay: 0.1s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+        .tool-card:nth-child(3) { animation-delay: 0.3s; }
+        .tool-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* responsive */
+        @media (max-width: 800px) {
+            .container {
+                padding: 0 1.2rem;
+            }
+            nav {
+                flex-direction: column;
+                gap: 0.8rem;
+                border-radius: 2rem;
+            }
+            .nav-links {
+                gap: 1.8rem;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            .btn-primary, .btn-secondary {
+                width: 80%;
+                text-align: center;
+            }
+        }
+
+        /* glow effect on buttons & scroll reveal */
+        .glow-text {
+            text-shadow: 0 0 6px rgba(90, 140, 255, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Axinity Labs</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#tools-section">Tools</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Build Better Study Habits.</h1>
+        <p>A growing suite of tools designed to help students plan, focus, track progress, and perform better.</p>
+        <div class="cta-group">
+            <a href="#tools-section" class="btn-primary" id="exploreToolsBtn">Explore Tools</a>
+            <button class="btn-secondary" id="comingSoonBtn">More Coming Soon</button>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools-section">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 0.5rem;">
+            <h2 class="section-title">⚡ Productivity Toolkit</h2>
+        </div>
+        <div class="tools-grid">
+            <!-- Tool 1: Video Study Planner -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-video"></i></div>
+                <h3>Video Study Planner</h3>
+                <p>Plan study sessions around video lectures and stay organized.</p>
+                <a href="https://axinity-systems.github.io/video-study-planner/" target="_blank" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Tool 2: Attendance Calculator+ -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-calculator"></i></div>
+                <h3>Attendance Calculator+</h3>
+                <p>Track attendance %, safe bunk limits, recovery goals, and semester targets.</p>
+                <a href="https://axinity-systems.github.io/attendance-calculator/" target="_blank" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Tool 3: Pomodoro Focus Timer (Coming Soon) -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-hourglass-half"></i></div>
+                <h3>Pomodoro Focus Timer</h3>
+                <p>Stay locked in with distraction-free focus sessions.</p>
+                <button class="tool-btn coming-soon-btn" data-tool="Pomodoro Focus Timer">Coming Soon <i class="fas fa-clock"></i></button>
+            </div>
+            <!-- Tool 4: Grade Target Calculator (Coming Soon) -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Grade Target Calculator</h3>
+                <p>Know what scores you need to reach your academic goals.</p>
+                <button class="tool-btn coming-soon-btn" data-tool="Grade Target Calculator">Coming Soon <i class="fas fa-clock"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <h2 class="section-title" style="margin-bottom: 1rem;">✨ Why Axinity?</h2>
+        <div class="features-grid">
+            <div class="feature-card"><i class="fas fa-graduation-cap"></i><h4>Student Focused</h4><p style="font-size:0.8rem; margin-top:8px;">Built by students, for students</p></div>
+            <div class="feature-card"><i class="fas fa-rocket"></i><h4>Fast & Lightweight</h4><p style="font-size:0.8rem; margin-top:8px;">Instant load, no bloat</p></div>
+            <div class="feature-card"><i class="fas fa-mobile-alt"></i><h4>Mobile Friendly</h4><p style="font-size:0.8rem; margin-top:8px;">Study on any device</p></div>
+            <div class="feature-card"><i class="fas fa-heart"></i><h4>Free to Use</h4><p style="font-size:0.8rem; margin-top:8px;">Zero cost, forever</p></div>
+        </div>
+    </section>
+
+    <!-- Stats Section (Animated Counters) -->
+    <section>
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number"><span class="counter" data-target="2">0</span></div>
+                <div class="stat-label">Tools Live</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><span class="counter" data-target="2">0</span>+</div>
+                <div class="stat-label">More Coming Soon</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><span class="counter" data-target="1">0</span></div>
+                <div class="stat-label">Built by 1 Student</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-weight: 500;">🚀 Built by Axinity Systems</p>
+        <p style="font-size: 0.85rem; margin-top: 0.6rem; color: #b0c0ff;">More tools launching soon. Stay focused.</p>
+        <div style="margin-top: 1rem; font-size: 0.75rem;">© 2025 Axinity Labs — Student Productivity Ecosystem</div>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ----- COUNTER ANIMATION (Intersection Observer) -----
+        const counters = document.querySelectorAll('.counter');
+        
+        // Function to start counting
+        function startCounter(counterElement) {
+            const target = parseInt(counterElement.getAttribute('data-target'));
+            let current = 0;
+            const increment = target / 40; // smooth over ~1 sec at 60fps
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counterElement.innerText = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counterElement.innerText = target;
+                }
+            };
+            updateCounter();
+        }
+        
+        // Observer for stats section
+        const statsSection = document.querySelector('.stats-section');
+        let counted = false;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counted) {
+                    counted = true;
+                    counters.forEach(counter => {
+                        startCounter(counter);
+                    });
+                    observer.unobserve(statsSection);
+                }
+            });
+        }, { threshold: 0.4 });
+        
+        if (statsSection) observer.observe(statsSection);
+        
+        // Precaution: if stats already visible on load, trigger after small delay
+        if (statsSection && statsSection.getBoundingClientRect().top < window.innerHeight - 100) {
+            setTimeout(() => {
+                if (!counted) {
+                    counted = true;
+                    counters.forEach(counter => startCounter(counter));
+                }
+            }, 300);
+        }
+        
+        // ----- Coming Soon Alerts (with elegant toast/alert but modern subtle) -----
+        const comingSoonBtns = document.querySelectorAll('.coming-soon-btn');
+        comingSoonBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const toolName = btn.getAttribute('data-tool') || 'this tool';
+                // Create a subtle floating notification (glass toast)
+                showFloatingMessage(`${toolName} is under development — launching soon! ✨`);
+            });
+        });
+        
+        // Secondary CTA "More Coming Soon" button in hero
+        const moreSoonBtn = document.getElementById('comingSoonBtn');
+        if (moreSoonBtn) {
+            moreSoonBtn.addEventListener('click', () => {
+                showFloatingMessage('⚡ Two new tools in active development — Pomodoro & Grade Tracker!');
+            });
+        }
+        
+        // Explore Tools button smooth scroll + optional highlight effect
+        const exploreBtn = document.getElementById('exploreToolsBtn');
+        if (exploreBtn) {
+            exploreBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const toolsSection = document.getElementById('tools-section');
+                if (toolsSection) {
+                    toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // subtle highlight effect on tools grid
+                    const cards = document.querySelectorAll('.tool-card');
+                    cards.forEach((card, idx) => {
+                        card.style.transition = 'all 0.2s';
+                        card.style.boxShadow = '0 0 0 2px #7b9eff, 0 10px 25px -5px #3b5eff';
+                        setTimeout(() => {
+                            card.style.boxShadow = '';
+                        }, 800);
+                    });
+                }
+            });
+        }
+        
+        // smooth scroll for nav links "Tools"
+        const toolsNavLink = document.querySelector('.nav-links a[href="#tools-section"]');
+        if (toolsNavLink) {
+            toolsNavLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('tools-section')?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        const aboutNavLink = document.querySelector('.nav-links a[href="#about"]');
+        if (aboutNavLink) {
+            aboutNavLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                // scroll to footer area as "about" info placeholder
+                document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        const homeLink = document.querySelector('.nav-links a[href="#"]');
+        if (homeLink) {
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        
+        // Floating toast message (glassmorphic)
+        function showFloatingMessage(msg) {
+            // remove any existing toast to avoid stacking
+            const existingToast = document.querySelector('.custom-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast';
+            toast.innerText = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'rgba(20, 25, 50, 0.9)';
+            toast.style.backdropFilter = 'blur(16px)';
+            toast.style.border = '1px solid rgba(100, 150, 255, 0.7)';
+            toast.style.color = '#eef3ff';
+            toast.style.padding = '0.9rem 1.8rem';
+            toast.style.borderRadius = '3rem';
+            toast.style.fontWeight = '500';
+            toast.style.fontSize = '0.9rem';
+            toast.style.zIndex = '9999';
+            toast.style.boxShadow = '0 12px 28px -8px rgba(0,0,0,0.4)';
+            toast.style.fontFamily = "'Inter', sans-serif";
+            toast.style.letterSpacing = '0.2px';
+            toast.style.textAlign = 'center';
+            toast.style.whiteSpace = 'nowrap';
+            if (window.innerWidth < 500) toast.style.whiteSpace = 'normal';
+            toast.style.maxWidth = '85vw';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 2800);
+        }
+        
+        // subtle entrance animation on features and stats? Already via css, but also add intersection for extra smoothness
+        const animateElements = document.querySelectorAll('.feature-card, .stat-card');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        animateElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(15px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.4s ease';
+            fadeObserver.observe(el);
+        });
+        
+        // little extra glow to hero CTA and tool buttons on hover: already via css but additional dynamic
+        // also handle card entrance for all cards (they already animated from load) but ensure no conflict.
+        // additional micro-interaction: on window load, tool cards already animated via css.
+        
+        // fix for mobile nav if any extra, ensure no layout shift
+        console.log('Axinity Labs: modern toolkit ready');
+        
+        // Preload style for stat counters if observer not triggered but we already covered
+        if (!counted && statsSection && window.scrollY + window.innerHeight > statsSection.offsetTop) {
+            setTimeout(() => {
+                if (!counted) {
+                    counted = true;
+                    counters.forEach(counter => startCounter(counter));
+                }
+            }, 200);
+        }
+        
+        // manually ensure that the counters on page load if visible quickly
+        window.addEventListener('load', () => {
+            if (statsSection && !counted && statsSection.getBoundingClientRect().top < window.innerHeight - 50) {
+                setTimeout(() => {
+                    if (!counted) {
+                        counted = true;
+                        counters.forEach(counter => startCounter(counter));
+                    }
+                }, 100);
+            }
+        });
+    })();
+</script>
+</body>
+</html>
