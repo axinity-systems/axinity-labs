@@ -15,6 +15,83 @@
             box-sizing: border-box;
         }
 
+        /* ----- ANIMATED PRELOADER (very cool) ----- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, #0e1222, #020308);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.6s;
+            pointer-events: none;
+        }
+
+        .preloader-content {
+            text-align: center;
+            transform: translateY(-10px);
+            animation: floatPreloader 2.2s ease-in-out infinite;
+        }
+
+        .preloader-logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #a3b9ff, #c5adff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(90,140,255,0.5);
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        .preloader-spinner {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            background: #7b9eff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #3b5eff;
+            animation: bounceDot 1.4s infinite ease-in-out both;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; background: #8b5cf6; }
+        .dot:nth-child(2) { animation-delay: -0.16s; background: #3b5eff; }
+        .dot:nth-child(3) { animation-delay: 0s; background: #a78bfa; }
+
+        @keyframes bounceDot {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 30px #8b9eff; }
+        }
+
+        @keyframes floatPreloader {
+            0% { transform: translateY(-10px); }
+            50% { transform: translateY(8px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px rgba(100,150,255,0.3); }
+            100% { text-shadow: 0 0 30px rgba(130,170,255,0.8); }
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* ----- MAIN STYLES (glassmorphism) ----- */
         body {
             font-family: 'Inter', sans-serif;
             background: radial-gradient(circle at 10% 20%, #0a0c12, #030507);
@@ -24,7 +101,6 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism + premium dark theme */
         .glass-card, nav, .tool-card, .feature-card, .stat-card, footer {
             background: rgba(20, 25, 40, 0.55);
             backdrop-filter: blur(12px);
@@ -39,7 +115,6 @@
             padding: 0 2rem;
         }
 
-        /* Navbar */
         nav {
             display: flex;
             justify-content: space-between;
@@ -80,7 +155,6 @@
             text-shadow: 0 0 5px rgba(100, 150, 255, 0.4);
         }
 
-        /* Buttons */
         .btn-primary {
             background: linear-gradient(105deg, #3b5eff, #8b5cf6);
             border: none;
@@ -121,7 +195,6 @@
             transform: translateY(-2px);
         }
 
-        /* Hero */
         .hero {
             display: flex;
             flex-direction: column;
@@ -155,7 +228,6 @@
             justify-content: center;
         }
 
-        /* Section headers */
         .section-title {
             font-size: 2.2rem;
             font-weight: 700;
@@ -167,7 +239,6 @@
             display: inline-block;
         }
 
-        /* Tools Grid */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -231,7 +302,6 @@
             gap: 12px;
         }
 
-        /* Features */
         .features-grid {
             display: flex;
             flex-wrap: wrap;
@@ -260,7 +330,6 @@
             font-weight: 600;
         }
 
-        /* Stats Section */
         .stats-section {
             display: flex;
             justify-content: center;
@@ -297,68 +366,30 @@
             background: rgba(10, 12, 20, 0.7);
         }
 
-        /* Animations */
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* staggered cards */
         .tool-card:nth-child(1) { animation-delay: 0.1s; }
         .tool-card:nth-child(2) { animation-delay: 0.2s; }
         .tool-card:nth-child(3) { animation-delay: 0.3s; }
         .tool-card:nth-child(4) { animation-delay: 0.4s; }
+        .tool-card:nth-child(5) { animation-delay: 0.5s; }
 
-        /* responsive */
         @media (max-width: 800px) {
-            .container {
-                padding: 0 1.2rem;
-            }
-            nav {
-                flex-direction: column;
-                gap: 0.8rem;
-                border-radius: 2rem;
-            }
-            .nav-links {
-                gap: 1.8rem;
-            }
-            .hero h1 {
-                font-size: 2.4rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
+            .container { padding: 0 1.2rem; }
+            nav { flex-direction: column; gap: 0.8rem; border-radius: 2rem; }
+            .nav-links { gap: 1.8rem; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
         }
         @media (max-width: 480px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-            .cta-group {
-                flex-direction: column;
-                width: 100%;
-                align-items: center;
-            }
-            .btn-primary, .btn-secondary {
-                width: 80%;
-                text-align: center;
-            }
+            .tools-grid { grid-template-columns: 1fr; }
+            .cta-group { flex-direction: column; width: 100%; align-items: center; }
+            .btn-primary, .btn-secondary { width: 80%; text-align: center; }
         }
 
-        /* glow effect on buttons & scroll reveal */
-        .glow-text {
-            text-shadow: 0 0 6px rgba(90, 140, 255, 0.4);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Live badge for active tools */
         .live-badge {
             background: #10b981;
             color: white;
@@ -383,6 +414,18 @@
     </style>
 </head>
 <body>
+
+<!-- 🌟 VERY COOL ANIMATED PRELOADER 🌟 -->
+<div id="preloader">
+    <div class="preloader-content">
+        <div class="preloader-logo">Axinity Labs</div>
+        <div class="preloader-spinner">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <!-- Navbar -->
@@ -419,7 +462,8 @@
                     <span class="live-badge">LIVE</span>
                 </div>
                 <p>Plan study sessions around video lectures and stay organized.</p>
-                <a href="https://axinity-systems.github.io/video-study-planner/" target="_blank" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <!-- OPEN IN SAME TAB (no target="_blank") -->
+                <a href="https://axinity-systems.github.io/video-study-planner/" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
             </div>
             <!-- Tool 2: Attendance Calculator+ -->
             <div class="tool-card">
@@ -429,9 +473,9 @@
                     <span class="live-badge">LIVE</span>
                 </div>
                 <p>Track attendance %, safe bunk limits, recovery goals, and semester targets.</p>
-                <a href="https://axinity-systems.github.io/attendance-calculator/" target="_blank" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <a href="https://axinity-systems.github.io/attendance-calculator/" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
             </div>
-            <!-- Tool 3: Pomodoro Focus Timer (NOW LIVE) -->
+            <!-- Tool 3: Pomodoro Focus Timer -->
             <div class="tool-card">
                 <div class="tool-icon"><i class="fas fa-hourglass-half"></i></div>
                 <div class="tool-header">
@@ -439,7 +483,7 @@
                     <span class="live-badge">LIVE</span>
                 </div>
                 <p>Stay locked in with distraction-free focus sessions & smart intervals.</p>
-                <a href="https://axinity-systems.github.io/focus-timer/" target="_blank" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <a href="https://axinity-systems.github.io/focus-timer/" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
             </div>
             <!-- Tool 4: Grade Target Calculator (Coming Soon) -->
             <div class="tool-card">
@@ -450,6 +494,16 @@
                 </div>
                 <p>Know what scores you need to reach your academic goals.</p>
                 <button class="tool-btn coming-soon-btn" data-tool="Grade Target Calculator">Coming Soon <i class="fas fa-clock"></i></button>
+            </div>
+            <!-- 🆕 NEW CARD: Axinity Pulse (Mental Health & Mood) -->
+            <div class="tool-card">
+                <div class="tool-icon"><i class="fas fa-heartbeat"></i></div>
+                <div class="tool-header">
+                    <h3>Axinity Pulse</h3>
+                    <span class="live-badge" style="background:#8b5cf6;">COMING SOON</span>
+                </div>
+                <p>Mental health & mood check-ins. Track emotional wellbeing with gentle insights.</p>
+                <button class="tool-btn coming-soon-btn" data-tool="Axinity Pulse">Coming Soon <i class="fas fa-clock"></i></button>
             </div>
         </div>
     </section>
@@ -473,8 +527,9 @@
                 <div class="stat-label">Tools Live</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number"><span class="counter" data-target="1">0</span>+</div>
-                <div class="stat-label">More Coming Soon</div>
+                <!-- updated: 2 upcoming tools (Grade Target + Axinity Pulse) -->
+                <div class="stat-number"><span class="counter" data-target="2">0</span>+</div>
+                <div class="stat-label">Upcoming Tools</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number"><span class="counter" data-target="1">0</span></div>
@@ -493,14 +548,35 @@
 
 <script>
     (function() {
-        // ----- COUNTER ANIMATION (Intersection Observer) -----
+        "use strict";
+
+        // ---------- PRELOADER (cool animated) ----------
+        const preloader = document.getElementById('preloader');
+        function hidePreloader() {
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                // remove from DOM after transition to avoid blocking clicks
+                setTimeout(() => {
+                    if (preloader && preloader.parentNode) {
+                        preloader.style.display = 'none';
+                    }
+                }, 700);
+            }
+        }
+        // Hide preloader when everything is loaded
+        window.addEventListener('load', hidePreloader);
+        // Fallback: if load event already happened, hide immediately
+        if (document.readyState === 'complete') {
+            setTimeout(hidePreloader, 50);
+        }
+
+        // ---------- COUNTER ANIMATION (Intersection Observer) ----------
         const counters = document.querySelectorAll('.counter');
         
-        // Function to start counting
         function startCounter(counterElement) {
             const target = parseInt(counterElement.getAttribute('data-target'));
             let current = 0;
-            const increment = target / 40; // smooth over ~1 sec at 60fps
+            const increment = target / 40; 
             const updateCounter = () => {
                 current += increment;
                 if (current < target) {
@@ -513,7 +589,6 @@
             updateCounter();
         }
         
-        // Observer for stats section
         const statsSection = document.querySelector('.stats-section');
         let counted = false;
         
@@ -521,9 +596,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting && !counted) {
                     counted = true;
-                    counters.forEach(counter => {
-                        startCounter(counter);
-                    });
+                    counters.forEach(counter => startCounter(counter));
                     observer.unobserve(statsSection);
                 }
             });
@@ -531,7 +604,6 @@
         
         if (statsSection) observer.observe(statsSection);
         
-        // Precaution: if stats already visible on load, trigger after small delay
         if (statsSection && statsSection.getBoundingClientRect().top < window.innerHeight - 100) {
             setTimeout(() => {
                 if (!counted) {
@@ -541,7 +613,7 @@
             }, 300);
         }
         
-        // ----- Coming Soon Alerts (only for Grade Target Calculator) -----
+        // ---------- COMING SOON ALERTS (including new Axinity Pulse) ----------
         const comingSoonBtns = document.querySelectorAll('.coming-soon-btn');
         comingSoonBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -551,25 +623,23 @@
             });
         });
         
-        // Secondary CTA "More Coming Soon" button in hero
         const moreSoonBtn = document.getElementById('comingSoonBtn');
         if (moreSoonBtn) {
             moreSoonBtn.addEventListener('click', () => {
-                showFloatingMessage('⚡ Grade Target Calculator + more tools are in active development!');
+                showFloatingMessage('⚡ Grade Target Calculator, Axinity Pulse + more tools are in active development!');
             });
         }
         
-        // Explore Tools button smooth scroll + highlight effect
+        // Explore Tools smooth scroll + highlight
         const exploreBtn = document.getElementById('exploreToolsBtn');
         if (exploreBtn) {
             exploreBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const toolsSection = document.getElementById('tools-section');
-                if (toolsSection) {
-                    toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // subtle highlight effect on tools grid
+                const toolsSectionEl = document.getElementById('tools-section');
+                if (toolsSectionEl) {
+                    toolsSectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     const cards = document.querySelectorAll('.tool-card');
-                    cards.forEach((card, idx) => {
+                    cards.forEach((card) => {
                         card.style.transition = 'all 0.2s';
                         card.style.boxShadow = '0 0 0 2px #7b9eff, 0 10px 25px -5px #3b5eff';
                         setTimeout(() => {
@@ -580,7 +650,7 @@
             });
         }
         
-        // smooth scroll for nav links "Tools"
+        // Nav links smooth scroll
         const toolsNavLink = document.querySelector('.nav-links a[href="#tools-section"]');
         if (toolsNavLink) {
             toolsNavLink.addEventListener('click', (e) => {
@@ -640,7 +710,7 @@
             }, 2800);
         }
         
-        // subtle entrance animation on features and stats
+        // Fade-up on features & stats
         const animateElements = document.querySelectorAll('.feature-card, .stat-card');
         const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -658,7 +728,7 @@
             fadeObserver.observe(el);
         });
         
-        // additional micro: preload stats check for mobile & desktop
+        // Ensure counters if already visible
         if (!counted && statsSection && window.scrollY + window.innerHeight > statsSection.offsetTop) {
             setTimeout(() => {
                 if (!counted) {
@@ -677,65 +747,20 @@
                     }
                 }, 100);
             }
-            // subtle console branding
-            console.log('Axinity Labs | 3 live tools: Video Planner, Attendance+, Pomodoro Timer');
+            console.log('✨ Axinity Labs | 3 live tools + 2 upcoming (Grade Target, Axinity Pulse)');
         });
+
+        // Double-check: all external links open in same tab (target removed, default _self)
+        // Also ensure no stray target="_blank" left.
+        document.querySelectorAll('a[target="_blank"]').forEach(link => link.removeAttribute('target'));
         
-        // Bonus: update the meta info for any external share? not needed but clean.
-        // Since Pomodoro is now live, we ensure no "coming soon" messages appear for it.
-        // All links to focus-timer are correctly pointing to the live tool.
-        // Also making sure that any stray "coming soon" classes are removed from Pomodoro card if mistakenly added.
-        const pomodoroCard = document.querySelector('.tool-card:nth-child(3) .coming-soon-btn');
-        if (pomodoroCard) {
-            // safety: if for some reason pomodoro card still has coming-soon-btn, replace with anchor
-            const parentCard = pomodoroCard.closest('.tool-card');
-            if (parentCard && parentCard.querySelector('.tool-icon i.fa-hourglass-half')) {
-                const liveLink = document.createElement('a');
-                liveLink.href = 'https://axinity-systems.github.io/focus-timer/';
-                liveLink.target = '_blank';
-                liveLink.className = 'tool-btn';
-                liveLink.innerHTML = 'Open Tool <i class="fas fa-arrow-right"></i>';
-                pomodoroCard.replaceWith(liveLink);
-            }
-        }
+        // Update any tool button that might be anchor but we already removed target.
+        // Pulse card is new, fine.
+        // Force tools live badge consistency (Pomodoro already has LIVE)
+        const pulseBadge = document.querySelector('.tool-card:last-child .live-badge');
+        if (pulseBadge) pulseBadge.style.background = '#8b5cf6';
         
-        // Final sanity: ensure the third tool card has "Open Tool" instead of "Coming Soon"
-        const thirdToolBtn = document.querySelector('.tools-grid .tool-card:nth-child(3) .tool-btn');
-        if (thirdToolBtn && thirdToolBtn.classList && thirdToolBtn.classList.contains('coming-soon-btn')) {
-            // replace with proper link if somehow still
-            const newLink = document.createElement('a');
-            newLink.href = 'https://axinity-systems.github.io/focus-timer/';
-            newLink.target = '_blank';
-            newLink.className = 'tool-btn';
-            newLink.innerHTML = 'Open Tool <i class="fas fa-arrow-right"></i>';
-            thirdToolBtn.replaceWith(newLink);
-        }
-        
-        // additional polished: update "Tools Live" counter inside stat card based on actual live tools count (3)
-        const liveToolsSpan = document.querySelector('.stat-card:first-child .counter');
-        if (liveToolsSpan && liveToolsSpan.getAttribute('data-target') !== '3') {
-            liveToolsSpan.setAttribute('data-target', '3');
-            // if counting already happened, we don't force recount but fine
-        }
-        
-        // ensure the pomodoro card has the live badge
-        const thirdToolHeader = document.querySelector('.tools-grid .tool-card:nth-child(3) .tool-header');
-        if (thirdToolHeader && !thirdToolHeader.querySelector('.live-badge')) {
-            const badge = document.createElement('span');
-            badge.className = 'live-badge';
-            badge.innerText = 'LIVE';
-            thirdToolHeader.appendChild(badge);
-        }
-        
-        // small polish: change upcoming tools counter text to reflect accurate soon count (1 more core tool: grade calc)
-        const comingSoonStat = document.querySelector('.stat-card:nth-child(2) .stat-label');
-        if (comingSoonStat) comingSoonStat.innerText = 'Upcoming Tool';
-        
-        // Additional dynamic: hovering highlight for live tools
-        const allLiveBadges = document.querySelectorAll('.live-badge');
-        allLiveBadges.forEach(badge => {
-            badge.style.transition = '0.2s';
-        });
+        // Ensure 5th card animation
     })();
 </script>
 </body>
