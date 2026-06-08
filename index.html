@@ -508,10 +508,10 @@
                 <div class="tool-icon"><i class="fas fa-heartbeat"></i></div>
                 <div class="tool-header">
                     <h3>Axinity Pulse</h3>
-                    <span class="live-badge" style="background:#8b5cf6;">COMING SOON</span>
+                    <span class="live-badge">LIVE </span>
                 </div>
                 <p>Mental health & mood check-ins. Track emotional wellbeing with gentle insights.</p>
-                <button class="tool-btn coming-soon-btn" data-tool="Axinity Pulse">Coming Soon <i class="fas fa-clock"></i></button>
+                <a href="https://pulse-axinity.web.app/index.html" class="tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -522,7 +522,7 @@
         <div class="features-grid">
             <div class="feature-card"><i class="fas fa-graduation-cap"></i><h4>Student Focused</h4><p style="font-size:0.8rem; margin-top:8px;">Built by students, for students</p></div>
             <div class="feature-card"><i class="fas fa-rocket"></i><h4>Fast & Lightweight</h4><p style="font-size:0.8rem; margin-top:8px;">Instant load, no bloat</p></div>
-            <div class="feature-card"><i class="fas fa-mobile-alt"></i><h4>Mobile Friendly</h4><p style="font-size:0.8rem; margin-top:8px;">Study on any device</p></div>
+            <div class="feature-card"><i class="fas fa-mobile-alt"></i><h4>Mobile Friendly</h4><p style="font-size:0.8rem; margin-top:8px;">Use on any device</p></div>
             <div class="feature-card"><i class="fas fa-heart"></i><h4>Free to Use</h4><p style="font-size:0.8rem; margin-top:8px;">Zero cost, forever</p></div>
         </div>
     </section>
@@ -531,12 +531,12 @@
     <section>
         <div class="stats-section">
             <div class="stat-card">
-                <div class="stat-number"><span class="counter" data-target="3">0</span></div>
+                <div class="stat-number"><span class="counter" data-target="5">0</span></div>
                 <div class="stat-label">Tools Live</div>
             </div>
             <div class="stat-card">
                 <!-- updated: 2 upcoming tools (Grade Target + Axinity Pulse) -->
-                <div class="stat-number"><span class="counter" data-target="2">0</span>+</div>
+                <div class="stat-number"><span class="counter" data-target="1">0</span>+</div>
                 <div class="stat-label">Upcoming Tools</div>
             </div>
             <div class="stat-card">
@@ -550,7 +550,7 @@
     <footer id="about">
         <p style="font-weight: 500;">🚀 Built by Axinity Systems</p>
         <p style="font-size: 0.85rem; margin-top: 0.6rem; color: #b0c0ff;">More tools launching soon. Stay focused.</p>
-        <div style="margin-top: 1rem; font-size: 0.75rem;">© 2025 Axinity Labs — Student Productivity Ecosystem</div>
+        <div style="margin-top: 1rem; font-size: 0.75rem;">© 2026 Axinity Systems. Student Productivity Ecosystem</div>
     </footer>
 </div>
 
@@ -634,7 +634,7 @@
         const moreSoonBtn = document.getElementById('comingSoonBtn');
         if (moreSoonBtn) {
             moreSoonBtn.addEventListener('click', () => {
-                showFloatingMessage('⚡ Grade Target Calculator, Axinity Pulse + more tools are in active development!');
+                showFloatingMessage('⚡ Homeward + more tools are in active development!');
             });
         }
         
@@ -755,20 +755,16 @@
                     }
                 }, 100);
             }
-            console.log('✨ Axinity Labs | 3 live tools + 2 upcoming (Grade Target, Axinity Pulse)');
+            console.log('✨ Axinity Labs | 5 live tools + Homeward and more upcoming!)');
         });
 
-        // Double-check: all external links open in same tab (target removed, default _self)
-        // Also ensure no stray target="_blank" left.
         document.querySelectorAll('a[target="_blank"]').forEach(link => link.removeAttribute('target'));
         
-        // Update any tool button that might be anchor but we already removed target.
-        // Pulse card is new, fine.
-        // Force tools live badge consistency (Pomodoro already has LIVE)
+
         const pulseBadge = document.querySelector('.tool-card:last-child .live-badge');
         if (pulseBadge) pulseBadge.style.background = '#8b5cf6';
         
-        // Ensure 5th card animation
+        
     })();
 </script>
 </body>
